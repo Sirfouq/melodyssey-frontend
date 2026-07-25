@@ -19,7 +19,7 @@ export const PlayerController = ({ player, isPaused, current_track, position, vo
         <div className="w-full px-4 py-5 flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0 flex-1 sm:flex-none sm:w-64">
                 <img src={current_track?.album.images[0].url} className="w-12 h-12 rounded shrink-0" />
-                <div>
+                <div className="min-w-0">
                     <p className="text-white text-sm font-medium truncate">{current_track?.name}</p>
                     <p className="text-neutral-400 text-xs truncate">{current_track?.artists[0].name}</p>
                 </div>
