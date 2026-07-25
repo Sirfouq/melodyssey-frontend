@@ -24,7 +24,7 @@ export const HomePage = () => {
 
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-indigo-0 to-indigo-100">
+    <div className="h-dvh flex flex-col bg-gradient-to-br from-indigo-0 to-indigo-100">
 
       {/*  HERO AREA   */}
       <Navbar links={Nav_links}
@@ -38,21 +38,20 @@ export const HomePage = () => {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto overscroll-contain">
-        <section className="px-6 py-12 pb-12 max-w-4xl mx-auto">
-          <HeroTitle title='How does your soul feel right now ? ' />
-          <VibeInput
-            placeholder='How does your soul feel right now ?'
-            variant="hero"
-            onSubmit={(input) => generatePlaylist(input)}
-          />
+      <div className={`flex-1 overflow-y-auto overscroll-contain ${current_track ? 'pb-18' : ''}`}>        <section className="px-6 py-12 pb-12 max-w-4xl mx-auto">
+        <HeroTitle title='How does your soul feel right now ? ' />
+        <VibeInput
+          placeholder='How does your soul feel right now ?'
+          variant="hero"
+          onSubmit={(input) => generatePlaylist(input)}
+        />
 
-          {error && (
-            <p className='mt-3 text-sm text-red-500'>
-              {error.message}
-            </p>
-          )}
-        </section>
+        {error && (
+          <p className='mt-3 text-sm text-red-500'>
+            {error.message}
+          </p>
+        )}
+      </section>
 
         {/* GENERATD LIST AREA*/}
         {hasContent && (
@@ -82,7 +81,7 @@ export const HomePage = () => {
 
       {/* PLAYER AREA  */}
       {current_track && (
-        <div className="z-40 shrink-0 bg-white/95 backdrop-blur-sm border-t border-black/5">
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-neutral-900/60 backdrop-blur-lg border-t border-white/10">
           <PlayerController
             player={player}
             current_track={current_track}

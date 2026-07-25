@@ -16,9 +16,8 @@ export const PlayerController = ({ player, isPaused, current_track, position, vo
 
     const [seekPosition, setSeekPosition] = useState<number | null>(null)
     return (
-        <div className="w-full bg-neutral-900 px-4 py-5 
-  flex items-center justify-between">
-            <div className="flex items-center gap-3 w-64">
+        <div className="w-full px-4 py-5 flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0 flex-1 sm:flex-none sm:w-64">
                 <img src={current_track?.album.images[0].url} className="w-12 h-12 rounded shrink-0" />
                 <div>
                     <p className="text-white text-sm font-medium truncate">{current_track?.name}</p>
@@ -27,42 +26,40 @@ export const PlayerController = ({ player, isPaused, current_track, position, vo
 
             </div>
 
-            <div className="flex-1 flex flex-col items-center gap-1">
-                <div className='flex items-center gap-4 justify-center'>
-                    <button
+            <div className="flex-1 min-w-0 flex flex-col items-center gap-1">                <div className='flex items-center gap-4 justify-center'>
+                <button
 
-                        className="text-white"
-                        onClick={() => player?.previousTrack()}
+                    className="text-white"
+                    onClick={() => player?.previousTrack()}
 
-                    >
-                        <SkipBack />
-                    </button>
+                >
+                    <SkipBack />
+                </button>
 
-                    <button
+                <button
 
-                        className="text-white"
-                        onClick={() => {
-                            console.log('player', player)
-                            player?.togglePlay()
-                        }}
-                    >
-                        {isPaused ? <Play /> : <Pause />}
-                    </button>
+                    className="text-white"
+                    onClick={() => {
+                        console.log('player', player)
+                        player?.togglePlay()
+                    }}
+                >
+                    {isPaused ? <Play /> : <Pause />}
+                </button>
 
-                    <button
+                <button
 
-                        className="text-white"
-                        onClick={() => player?.nextTrack()}
-                    >
-                        <SkipForward />
-                    </button>
-                </div>
-                <div className="w-96 text-white">
+                    className="text-white"
+                    onClick={() => player?.nextTrack()}
+                >
+                    <SkipForward />
+                </button>
+            </div>
+                <div className="w-full sm:w-96 text-white">
                     <Slider
                         value={[seekPosition ?? position]}
                         max={current_track?.duration_ms ?? 100}
-                        className="w-96 [&_[data-slot=slider-track]]:bg-neutral-600
-  [&_[data-slot=slider-range]]:bg-white  [&_[data-slot=slider-thumb]]:border-white"
+                        className="w-full sm:w-96 [&_[data-slot=slider-track]]:bg-neutral-600 [&_[data-slot=slider-range]]:bg-white [&_[data-slot=slider-thumb]]:border-white"
                         onValueChange={(val) => setSeekPosition(val[0])}
                         onValueCommit={(val) => {
                             seek(val[0])
@@ -73,7 +70,7 @@ export const PlayerController = ({ player, isPaused, current_track, position, vo
                 </div>
 
             </div>
-            <div className="flex items-center gap-2 w-32 justify-end">
+            <div className="hidden sm:flex items-center gap-2 w-32 justify-end">
                 <Slider
                     value={[volume]}
                     max={1}
