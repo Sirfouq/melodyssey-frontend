@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# 🎧 MELODYSSEY
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Describe a mood — get a real, playable Spotify playlist, curated by AI.**
 
-Currently, two official plugins are available:
+Type something like *"rainy Sunday, slow coding session"* and MELODYSSEY builds a set
+of real Spotify tracks and plays them right in the browser. An LLM does the curation;
+Spotify provides the catalog and playback.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**▶️ Live:** https://melodyssey.vercel.app
 
-## React Compiler
+> _Screenshot / demo GIF here (`docs/demo.gif`)._
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Why it's built this way
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Spotify **deprecated its Recommendations and Audio Features APIs for new apps** (late
+2024) — exactly what most "mood playlist" projects depend on. MELODYSSEY sidesteps
+that by using an LLM as the recommendation engine and Spotify purely for search and
+playback.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## How it works
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+mood ──> Frontend ──POST /api/generate──> Backend ──> OpenAI (curates real tracks)
+                                                  └──> Spotify Search (resolves each)
+                                                            │
+                     playlist rendered + streamed <─────────┘
+                     via the Spotify Web Playback SDK
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Backend (Flask) lives in its own repo — **[melodyssey-backend](https://github.com/Sirfouq/melodyssey-backend)**.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Features
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- 🧠 Natural-language mood → 15–20 real, verified tracks (with optional genre/artist steering)
+- ▶️ Full in-browser playback (play/pause/seek/skip/volume) via the Web Playback SDK
+- 🔐 Spotify OAuth with secure, `HttpOnly` session cookies
+
+## Tech stack
+
+React 19 · TypeScript · Vite 7 · Tailwind v4 + shadcn/ui · React Router v7 · Spotify Web Playback SDK · deployed on Vercel
+
+## Run locally
+
+```bash
+npm install
+npm run dev        # http://127.0.0.1:5173
 ```
+
+Requires the [backend](https://github.com/Sirfouq/melodyssey-backend) running on
+`:5000` (Vite proxies `/api/*` to it) and a Spotify **Premium** account for playback.
