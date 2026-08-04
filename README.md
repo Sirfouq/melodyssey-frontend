@@ -8,7 +8,7 @@ Spotify provides the catalog and playback.
 
 **▶️ Live:** https://melodyssey.vercel.app
 
-> _Screenshot / demo GIF here (`docs/demo.gif`)._
+![MELODYSSEY demo](docs/demo.gif)
 
 ---
 
