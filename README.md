@@ -2,7 +2,7 @@
 
 **Describe a mood — get a real, playable Spotify playlist, curated by AI.**
 
-Type something like *"rainy Sunday, slow coding session"* and MELODYSSEY builds a set
+Type something like _"rainy Sunday, slow coding session"_ and MELODYSSEY builds a set
 of real Spotify tracks and plays them right in the browser. An LLM does the curation;
 Spotify provides the catalog and playback.
 
@@ -12,10 +12,15 @@ Spotify provides the catalog and playback.
 
 ---
 
+> [!NOTE]
+> ACCESS: Spotify caps Development Mode apps at 5 authorised accounts, and Extended Quota now
+> requires a registered business with 250k monthly active users — so public sign-in
+> isn't possible for an independent project. The demo above shows the full flow.
+> Email me and I'll add your Spotify account (Premium required for playback).
+
 ## Why it's built this way
 
-Spotify **deprecated its Recommendations and Audio Features APIs for new apps** (late
-2024) — exactly what most "mood playlist" projects depend on. MELODYSSEY sidesteps
+Spotify **deprecated its Recommendations and Audio Features APIs for new apps** (late 2024) — exactly what most "mood playlist" projects depend on. MELODYSSEY sidesteps
 that by using an LLM as the recommendation engine and Spotify purely for search and
 playback.
 
